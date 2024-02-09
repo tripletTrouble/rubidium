@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+if (isset($argv[1])) {
+    switch ($argv[1]) {
+        case 'launch':
+            echo "Launching your app...";
+            echo "Installing composer depedency...";
+            echo `composer install`;
+            echo "Copying .env file...";
+            echo `cp .env.example .env`;
+            echo "Generating app key...";
+            echo `php artisan key:generate`;
+            echo "Installation complete, now edit your .env database section file then run \n \033[42;97mphp capybara launch:db\033[0m\n";
+            break;
+        case 'launch:db':
+            echo "Migrating database ...";
+            echo `php artisan migrate`;
+            echo "Installation complete, you can run \033[42;97mphp artisan serve\033[0m to start using the application!";
+	    break;
+        default:
+            echo "Sorry, Sir! We do not provide that command!";
+    }
+} else {
+    echo "\033[92mHello, I am \033[44;97mCapybara\033[0;92m! Launch this app using \033[42;97mphp capybara launch\033[0m";
+}
